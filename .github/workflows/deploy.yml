@@ -34,6 +34,8 @@ jobs:
 
       - name: Commit updated links.json
         run: |
+          git config --global user.email "zxjuner@qq.com"
+          git config --global user.name "zxjuner"
           git add src/json/links.json
           git commit -m "Update links.json timestamp"
           git push

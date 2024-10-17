@@ -12,7 +12,8 @@ function init() {
         searchResults: document.getElementById('searchResults'),
         searchButtonsContainer: document.getElementById('searchButtonsContainer'),
         addLinkButton: document.getElementById('addLinkButton'),
-        exportLinksButton: document.getElementById('exportLinksButton')
+        exportLinksButton: document.getElementById('exportLinksButton'),
+        clearLocalStorageButton: document.getElementById('clearLocalStorageButton')
     };
 
     ELEMENTS.searchResults.style.display = 'none'; // 默认隐藏搜索结果区域
@@ -24,21 +25,24 @@ function init() {
     let searchEngines = []; // 初始化搜索引擎选项
     const searchCache = new Map(); // 缓存搜索结果
     const faviconCache = new Map();
+    const linksTimestampKey = 'linksLastUpdated'; // 时间戳在 localStorage 中的键名
 
     function getFaviconUrl(url) {
         if (faviconCache.has(url)) {
             return faviconCache.get(url);
         }
         const cleanUrl = url.match(/(?:https?:\/\/)?(?:www\.)?([^\/]+)/i)[1];
-        const faviconUrl = `https://favicon.im/${encodeURIComponent(cleanUrl)}`;
+        const faviconUrl = `https://favicon.im/${encodeURIComponent(cleanUrl)}?larger=true`;
         faviconCache.set(url, faviconUrl);
         return faviconUrl;
     }
 
     // 初始化，从 localStorage 加载已保存的链接
-    links = loadLinksFromLocalStorage();
-    categories = new Set(links.map(link => link.category));
-    renderInitialUI();
+    checkForUpdates().then(() => {
+        links = loadLinksFromLocalStorage();
+        categories = new Set(links.map(link => link.category));
+        renderInitialUI();
+    });
 
     ELEMENTS.searchForm.addEventListener('submit', performSearch);
     ELEMENTS.searchInput.addEventListener('input', debounce(performSearch, 300));
@@ -50,8 +54,11 @@ function init() {
     // 导出链接功能
     ELEMENTS.exportLinksButton.addEventListener('click', exportLinksAsJson);
 
+    // 清除 LocalStorage
+    ELEMENTS.clearLocalStorageButton.addEventListener('click', clearLocalStorage);
+
     // 从 search_engines.json 文件加载搜索引擎
-    fetch('search_engines.json')
+    fetch('./json/search_engines.json')
         .then(response => response.json())
         .then(data => {
             searchEngines = data.engines; // 加载搜索引擎选项
@@ -59,20 +66,42 @@ function init() {
         })
         .catch(handleError);
 
-    // 如果 localStorage 中没有链接数据，则从 links.json 加载
-    if (links.length === 0) {
-        fetchData().then(data => {
-            links = data.links; // 将 links.json 文件中的数据加载到 links 数组
-            categories = new Set(links.map(link => link.category));
-            saveLinksToLocalStorage(); // 将数据保存到 localStorage 中
-            renderInitialUI(); // 渲染初始 UI
-        }).catch(handleError);
+    // 检查是否有新的 links.json 数据
+    function checkForUpdates() {
+        return fetch('./json/links.json')
+            .then(response => response.json())
+            .then(data => {
+                const remoteTimestamp = new Date(data.lastUpdated).getTime(); // 假设 links.json 包含 lastUpdated 字段
+                const localTimestamp = parseInt(localStorage.getItem(linksTimestampKey), 10) || 0;
+
+                if (remoteTimestamp > localTimestamp) {
+                    // 如果远程的时间戳更新了，更新 localStorage 数据
+                    links = data.links;
+                    categories = new Set(links.map(link => link.category));
+                    saveLinksToLocalStorage();
+                    localStorage.setItem(linksTimestampKey, remoteTimestamp.toString());
+                    renderInitialUI(); // 重新渲染 UI
+                }
+            })
+            .catch(handleError);
     }
 
     function loadLinksFromLocalStorage() {
         const storedLinks = localStorage.getItem('links');
-        return storedLinks ? JSON.parse(storedLinks) : [];
+        let links = storedLinks ? JSON.parse(storedLinks) : [];
+    
+        // 遍历链接，处理空的 category 和 subcategory
+        links = links.map(link => {
+            return {
+                ...link,
+                category: link.category || '其他',     // 如果 category 为空，则赋值为 "其他"
+                subcategory: link.subcategory || '其他'  // 如果 subcategory 为空，则赋值为 "其他"
+            };
+        });
+    
+        return links;
     }
+    
 
     function saveLinksToLocalStorage() {
         localStorage.setItem('links', JSON.stringify(links));
@@ -125,6 +154,12 @@ function init() {
         URL.revokeObjectURL(url);
     }
 
+    // 清除 localstorage
+    function clearLocalStorage() {
+        localStorage.clear();
+        location.reload();
+    }
+
     // 切换搜索模式按钮
     function renderSearchButtons() {
         ELEMENTS.searchButtonsContainer.innerHTML = '';
@@ -139,11 +174,10 @@ function init() {
     
     // 设置搜索框图标
     function updateSearchBoxIcon(engine) {
-        const icon = engine.icon || 'https://dummyimage.com/20x20&text=?'; // 如果没有图标则使用备用
+        const icon = engine.icon || 'https://dummyimage.com/40x40&text=?'; // 如果没有图标则使用备用
         const searchBoxIcon = document.getElementById('searchBoxIcon');
         searchBoxIcon.src = icon; // 更新图标的 src
     }
-    
     
     function setSearchMode(engine) {
         currentSearchMode = engine.id;
@@ -151,7 +185,6 @@ function init() {
         updateSearchBoxIcon(engine); // 更新搜索框图标
         clearSearchResults();
     }
-    
 
     function updateSearchButtons() {
         const buttons = ELEMENTS.searchButtonsContainer.querySelectorAll('button');
@@ -161,11 +194,6 @@ function init() {
                 button.classList.add('active-search-option');
             }
         });
-    }
-
-    function fetchData() {
-        return fetch('links.json')
-            .then(response => response.json());
     }
 
     function renderInitialUI() {
@@ -215,7 +243,7 @@ function init() {
 
         subcategories.forEach(subcategory => {
             const row = createElement('div', 'row subcategory-row');
-            const subcategoryItem = createElement('div', 'subcategory-nav-item col-md-3', subcategory);
+            const subcategoryItem = createElement('div', 'subcategory-nav-item col-md-2', subcategory);
             const linksContainer = createLinksContainerForSubcategory(subcategory);
 
             row.appendChild(subcategoryItem);
@@ -227,32 +255,58 @@ function init() {
     }
 
     function createLinksContainerForSubcategory(subcategory) {
-        const linksContainer = createElement('div', 'links-container col-md-9');
+        const linksContainer = createElement('div', 'links-container col-md-10');
+        const linksItems = createElement('ul', 'links-items row flex-wrap');
 
         links.filter(linkData => linkData.category === currentCategory && linkData.subcategory === subcategory)
             .forEach(linkData => {
                 const linkElement = createLinkElement(linkData);
-                linksContainer.appendChild(linkElement);
+                linksContainer.appendChild(linksItems);
+                linksItems.appendChild(linkElement);
             });
 
         return linksContainer;
     }
 
-    function createLinkElement(linkData) {
-        const a = createElement('a', 'link-item', linkData.name);
-        a.href = linkData.url;
-        a.setAttribute('data-id', linkData.id);
-        a.prepend(createFaviconImage(linkData.url, linkData.name));
-
-        a.addEventListener('click', function (event) {
+    function createLinkElement(linkData, showDescription = true) {
+        const linkItem = createElement('li', 'link-item col');
+        
+        // 创建超链接，并让整个卡片成为可点击区域
+        const cardLink = createElement('a', 'card-link');
+        cardLink.href = linkData.url;
+        cardLink.setAttribute('data-id', linkData.id);
+        cardLink.addEventListener('click', function (event) {
             event.preventDefault();
             recordClick(linkData.id);
             window.open(linkData.url, '_blank');
             updateTopLinks();
         });
-
-        return a;
+    
+        const card = createElement('div', 'card');
+        const cardBody = createElement('div', 'card-body');
+    
+        // 创建 favicon 图标和名称
+        const faviconImg = createFaviconImage(linkData.url, linkData.name);
+        cardBody.appendChild(faviconImg);
+    
+        const cardName = createElement('p', 'card-text link-name', linkData.name);
+        cardBody.appendChild(cardName);
+    
+        // 添加 description
+        if (showDescription) {
+            const descriptionText = linkData.description ? linkData.description : '&nbsp;';
+            const description = createElement('p', 'card-text description');
+            description.innerHTML = descriptionText; // 使用 innerHTML 来支持 &nbsp;
+            cardBody.appendChild(description);
+        }        
+    
+        card.appendChild(cardBody);
+        cardLink.appendChild(card); // 将卡片放入链接
+        linkItem.appendChild(cardLink); // 将链接放入列表项
+    
+        return linkItem;
     }
+   
 
     function createFaviconImage(url, name) {
         const img = document.createElement('img');
@@ -283,10 +337,8 @@ function init() {
         ELEMENTS.topLinkList.innerHTML = '';
         const fragment = document.createDocumentFragment();
         topLinks.forEach(item => {
-            const li = createElement('li');
             const linkElement = createLinkElement(item); // 使用新的链接创建函数
-            li.appendChild(linkElement);
-            fragment.appendChild(li);
+            fragment.appendChild(linkElement);
         });
         ELEMENTS.topLinkList.appendChild(fragment);
         ELEMENTS.topLinkList.parentElement.style.display = topLinks.length > 0 ? 'block' : 'none';
@@ -328,7 +380,6 @@ function init() {
             }
         }
     }
-    
 
     function clearSearchResults() {
         ELEMENTS.matchedLinks.innerHTML = ''; // 清空搜索结果
@@ -364,6 +415,6 @@ function init() {
 
     function handleError(error) {
         console.error('发生错误:', error);
-        alert('加载数据时发生错误，请稍后再试。'); // 友好的错误提示
+        alert('加载数据时发生错误，请稍后再试。');
     }
 }

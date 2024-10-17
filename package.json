@@ -1,7 +1,7 @@
 {
   "name": "calabash-navigation-site",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "index.js",
   "homepage": "https://zxjuner.github.io/calabash-navigation",
   "scripts": {
     "build": "webpack",

@@ -27,7 +27,11 @@ jobs:
       # 打包项目
       - name: Build project
         run: npm run build
-
+      
+      # 更新 links.json 文件的时间戳
+      - name: Update links.json timestamp
+        run: node src/js/updatelinks.js
+      
       # 部署到 gh-pages 分支
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

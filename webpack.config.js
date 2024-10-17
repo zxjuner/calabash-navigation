@@ -13,7 +13,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'js/main.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'build'),
         publicPath: './'
     },
     module: {
@@ -104,7 +104,7 @@ module.exports = {
                 { from: 'src/json', to: 'json' }
             ],
         }),
-        // 清理 dist 文件夹
+        // 清理 build 文件夹
         //new CleanWebpackPlugin()
         // 压缩 css
         // new OptimizeCssAssetsWebpackPlugin()
@@ -121,7 +121,7 @@ module.exports = {
     // 启动：webpack serve
     devServer: {
         static: {
-            directory: path.join(__dirname, 'dist'),
+            directory: path.join(__dirname, 'build'),
             publicPath: '/'
         },
         compress: true,

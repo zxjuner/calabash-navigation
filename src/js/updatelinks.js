@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // 定义 links.json 文件的路径（确保在 Actions 中路径正确）
-const filePath = path.join(__dirname, 'src/json/links.json');
+const filePath = path.join(__dirname, '../json/links.json');
 
 // 读取并更新文件
 fs.readFile(filePath, 'utf8', (err, data) => {

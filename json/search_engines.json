@@ -1,4 +1,5 @@
 {
+    "defaultSearchMode": "google",
     "engines": [
         { "id": "site", "name": "站内搜索", "url": "", "icon": "" },
         { "id": "baidu", "name": "百度", "url": "https://www.baidu.com/s?wd=", "icon": "https://favicon.im/baidu.com" },

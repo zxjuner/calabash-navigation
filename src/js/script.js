@@ -62,7 +62,14 @@ function init() {
         .then(response => response.json())
         .then(data => {
             searchEngines = data.engines; // 加载搜索引擎选项
+
+            // 设置默认搜索模式
+            if (data.defaultSearchMode) {
+                currentSearchMode = data.defaultSearchMode;
+            }
+
             renderSearchButtons(); // 渲染搜索引擎按钮
+            updateSearchBoxIcon(currentSearchMode); // 设置搜索框图标为默认搜索引擎的图标
         })
         .catch(handleError);
 
@@ -172,18 +179,19 @@ function init() {
         updateSearchButtons();
     }
     
-    // 设置搜索框图标
-    function updateSearchBoxIcon(engine) {
-        const icon = engine.icon || 'https://dummyimage.com/40x40&text=?'; // 如果没有图标则使用备用
-        const searchBoxIcon = document.getElementById('searchBoxIcon');
-        searchBoxIcon.src = icon; // 更新图标的 src
-    }
-    
     function setSearchMode(engine) {
         currentSearchMode = engine.id;
         updateSearchButtons();
-        updateSearchBoxIcon(engine); // 更新搜索框图标
+        updateSearchBoxIcon(engine.id); // 更新搜索框图标
         clearSearchResults();
+    }
+    
+    // 设置搜索框图标
+    function updateSearchBoxIcon(mode) {
+        const searchEngine = searchEngines.find(engine => engine.id === mode);
+        const icon = (searchEngine && searchEngine.icon) ? searchEngine.icon : 'https://dummyimage.com/40x40&text=logo';
+        const searchBoxIcon = document.getElementById('searchBoxIcon');
+        searchBoxIcon.src = icon; // 更新图标的 src
     }
 
     function updateSearchButtons() {

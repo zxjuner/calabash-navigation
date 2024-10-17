@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>葫芦聚合导航</title>
+    <meta name="description" content="聚合搜索,网址导航">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<script defer src="./js/main.js"></script><link href="./styles/calabash.built.css" rel="stylesheet"></head>
+
+<body>
+
+    <div class="container mt-4">
+        <!-- 搜索类型切换按钮容器 -->
+         <div class="row justify-content-center">
+            <div class="search-options col-12 col-lg-6 col-md-8" id="searchButtonsContainer">
+                <!-- 这里通过 JavaScript 动态生成按钮 -->
+            </div>
+         </div>
+         <div class="row justify-content-center">
+            <!-- 搜索框 -->
+            <form class="col-12 col-lg-6 col-md-8 mb-3" id="searchForm">
+                <div class="input-group">
+                    <span class="input-group-text" id="searchIconContainer">
+                        <img id="searchBoxIcon" class="favicon" src="https://dummyimage.com/40x40&text=logo" alt="search engine icon">
+                    </span>
+                    <input class="form-control" type="search" placeholder="搜索..." aria-label="Search" id="searchInput">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="bi bi-search"></i>
+                      </button>
+                </div>
+            </form>
+         </div>
+        
+
+        <!-- 显示搜索结果的区域 -->
+        <div class="search-results" id="searchResults">
+            <h5 class="text-center">Search Results</h5>
+            <ul class="list-group" id="matchedLinks">
+                <!-- 匹配到的链接将显示在这里 -->
+            </ul>
+        </div>
+
+        <!-- 置顶链接显示区域 -->
+        <div class="top-links">
+            <h5 class="text-center">Top Clicked Links</h5>
+            <ul class="list-group list-group-horizontal justify-content-center" id="topLinkList">
+                <!-- 点击次数最多的链接将显示在这里 -->
+            </ul>
+        </div>
+
+        <!-- 一级分类导航 -->
+        <div class="col-12 offset-md-2 col-md-8 category-nav justify-content-center" id="categoryNav">
+            <!-- 一级分类导航将动态生成 -->
+        </div>
+
+        <!-- 表格布局 -->
+        <div class="row">
+            <!-- 二级分类导航及链接 -->
+            <div class="subcategory-nav" id="subcategoryNav">
+                <!-- 二级分类导航将动态生成 -->
+            </div>
+        </div>
+    </div>
+    <footer class="">
+        <a id="addLinkButton" class="">添加新链接</a>
+        <a id="exportLinksButton" class="">导出链接</a>
+        <a id="clearLocalStorageButton" class="">清除本地存储</a>
+    </footer>
+
+    <!-- 添加链接的弹出框 -->
+    <div class="modal fade" id="addLinkModal" tabindex="-1" aria-labelledby="addLinkModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLinkModalLabel">添加新链接</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addLinkForm">
+                        <div class="mb-3">
+                            <label for="linkName" class="form-label">链接名称</label>
+                            <input type="text" class="form-control" id="linkName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="linkUrl" class="form-label">链接地址</label>
+                            <input type="url" class="form-control" id="linkUrl" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="linkCategory" class="form-label">类别</label>
+                            <input type="text" class="form-control" id="linkCategory" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="linkSubcategory" class="form-label">子类别</label>
+                            <input type="text" class="form-control" id="linkSubcategory" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="linkDescription" class="form-label">描述</label>
+                            <textarea class="form-control" id="linkDescription"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">添加链接</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script> <!-- 确保引用正确 -->
+</body>
+
+</html>

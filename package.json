@@ -2,10 +2,12 @@
   "name": "calabash-navigation-site",
   "version": "1.0.0",
   "main": "script.js",
+  "homepage": "https://zxjuner.github.io/calabash-navigation",
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open",
-    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,6 +19,7 @@
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.2.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.1",

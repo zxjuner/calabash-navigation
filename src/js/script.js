@@ -19,8 +19,6 @@ function init() {
     };
 
     ELEMENTS.searchResults.style.display = 'none'; // 默认隐藏搜索结果区域
-    // 初始化拖拽功能
-    initSortable();
 
     let links = [];
     let categories = new Set();
@@ -31,6 +29,9 @@ function init() {
     const faviconCache = new Map();
     const linksTimestampKey = 'linksLastUpdated'; // 时间戳在 localStorage 中的键名
 
+    // 初始化拖拽功能
+    initSortable();
+	
     function getFaviconUrl(url) {
         if (faviconCache.has(url)) {
             return faviconCache.get(url);
@@ -221,13 +222,21 @@ function init() {
     function renderCategoryNav() {
         ELEMENTS.categoryNav.innerHTML = '';
         const fragment = document.createDocumentFragment();
-        categories.forEach(category => {
-            const li = createNavItem(category, handleCategoryClick);
-            fragment.appendChild(li);
+    
+        // 从 localStorage 加载保存的分类顺序
+        const categoryOrder = JSON.parse(localStorage.getItem('categoryOrder')) || Array.from(categories);
+        
+        // 先排序分类顺序，然后渲染
+        categoryOrder.forEach(category => {
+            if (categories.has(category)) { // 确保渲染的分类存在
+                const li = createNavItem(category, handleCategoryClick);
+                fragment.appendChild(li);
+            }
         });
+    
         ELEMENTS.categoryNav.appendChild(fragment);
     }
-
+    
     function handleCategoryClick(category) {
         currentCategory = category; // 更新当前分类
         updateCategorySelection();
@@ -251,42 +260,49 @@ function init() {
     function renderSubcategoryNav() {
         ELEMENTS.subcategoryNav.innerHTML = '';
         const fragment = document.createDocumentFragment();
-        const subcategories = [...new Set(links.filter(link => link.category === currentCategory).map(link => link.subcategory))];
-        const subcategoryOrder = loadSubcategoryOrder();
-
+        let subcategories = [...new Set(links.filter(link => link.category === currentCategory).map(link => link.subcategory))];
+        
+        const subcategoryOrder = loadSubcategoryOrder(); // 加载保存的顺序
+        
+        // 按照保存的顺序重新排序子分类
+        if (Object.keys(subcategoryOrder).length > 0) {
+            subcategories.sort((a, b) => (subcategoryOrder.indexOf(a) - subcategoryOrder.indexOf(b)));
+        }
+    
         subcategories.forEach(subcategory => {
             const row = createElement('div', 'row subcategory-row');
             const subcategoryItem = createElement('div', 'subcategory-nav-item col-md-2', subcategory);
-            const linksContainer = createLinksContainerForSubcategory(subcategory, subcategoryOrder[subcategory]);
-
+            const linksContainer = createLinksContainerForSubcategory(subcategory);
+    
             row.appendChild(subcategoryItem);
             row.appendChild(linksContainer);
             fragment.appendChild(row);
         });
-
+    
         ELEMENTS.subcategoryNav.appendChild(fragment);
     }
-
-    function createLinksContainerForSubcategory(subcategory, savedOrder = []) {
+    
+    function createLinksContainerForSubcategory(subcategory) {
         const linksContainer = createElement('div', 'links-container col-md-10');
         const linksItems = createElement('ul', 'links-items row flex-wrap');
-
+        
         let subcategoryLinks = links.filter(linkData => linkData.category === currentCategory && linkData.subcategory === subcategory);
-
-        // 如果有保存的顺序，则按顺序重新排列
-        if (savedOrder.length) {
-            subcategoryLinks.sort((a, b) => savedOrder.indexOf(a.name) - savedOrder.indexOf(b.name));
+        const linkOrder = loadLinkOrder(); // 加载保存的链接顺序
+        
+        // 如果有保存的链接顺序，按照该顺序重新排序
+        if (linkOrder[subcategory] && linkOrder[subcategory].length) {
+            subcategoryLinks.sort((a, b) => linkOrder[subcategory].indexOf(a.name) - linkOrder[subcategory].indexOf(b.name));
         }
-
+        
         subcategoryLinks.forEach(linkData => {
             const linkElement = createLinkElement(linkData);
             linksItems.appendChild(linkElement);
         });
-
+    
         linksContainer.appendChild(linksItems);
         return linksContainer;
     }
-
+    
     function createLinkElement(linkData, showDescription = true) {
         const linkItem = createElement('li', 'link-item col');
         
@@ -317,8 +333,8 @@ function init() {
             const description = createElement('p', 'card-text description');
             description.innerHTML = descriptionText; // 使用 innerHTML 来支持 &nbsp;
             cardBody.appendChild(description);
-        }        
-    
+        }
+
         card.appendChild(cardBody);
         cardLink.appendChild(card); // 将卡片放入链接
         linkItem.appendChild(cardLink); // 将链接放入列表项
@@ -435,64 +451,60 @@ function init() {
         console.error('发生错误:', error);
         alert('加载数据时发生错误，请稍后再试。');
     }
-    
-    // 初始化拖拽功能
-function initSortable() {
-    // 使一级分类可拖拽排序
-    new Sortable(ELEMENTS.categoryNav, {
-        animation: 150,
-        onEnd: saveCategoryOrder
-    });
 
-    // 使子分类及其链接整体可拖拽排序
-    new Sortable(ELEMENTS.subcategoryNav, {
-        animation: 150,
-        handle: '.subcategory-nav-item', // 使用子分类标题作为拖动把手
-        onEnd: saveSubcategoryOrder
-    });
-
-    // 链接拖拽排序
-    document.querySelectorAll('.links-items').forEach((el) => {
-        new Sortable(el, {
+    // 拖拽功能
+    function initSortable() {
+        // 使一级分类可拖拽排序
+        new Sortable(ELEMENTS.categoryNav, {
             animation: 150,
-            onEnd: saveLinkOrder
+            onEnd: saveCategoryOrder
         });
-    });
-}
 
-// 保存一级分类顺序到 localStorage
-function saveCategoryOrder() {
-    const categoryOrder = Array.from(ELEMENTS.categoryNav.children)
-        .map(item => item.querySelector('a').textContent.trim());
-    localStorage.setItem('categoryOrder', JSON.stringify(categoryOrder));
-}
+        // 使子分类及其链接整体可拖拽排序
+        new Sortable(ELEMENTS.subcategoryNav, {
+            animation: 150,
+            handle: '.subcategory-nav-item', // 使用子分类标题作为拖动把手
+            onEnd: saveSubcategoryOrder
+        });
 
-// 保存二级分类顺序到 localStorage
-function saveSubcategoryOrder() {
-    const subcategoryOrder = {};
-    document.querySelectorAll('.subcategory-row').forEach((row) => {
-        const subcategoryName = row.querySelector('.subcategory-nav-item').textContent.trim();
-        subcategoryOrder[subcategoryName] = Array.from(row.querySelector('.links-items').children)
-            .map(linkItem => linkItem.querySelector('.card-text.link-name').textContent.trim());
-    });
-    localStorage.setItem('subcategoryOrder', JSON.stringify(subcategoryOrder));
-}
+		// 链接拖拽排序
+        document.querySelectorAll('.links-items').forEach((el) => {
+            new Sortable(el, {
+                animation: 150,
+                onEnd: saveLinkOrder
+            });
+        });
+    }
 
-function saveLinkOrder() {
-    const linkOrder = {};
-    document.querySelectorAll('.links-container').forEach((el) => {
-        const subcategoryName = el.previousElementSibling.textContent.trim();
-        linkOrder[subcategoryName] = Array.from(el.children).map(item => item.querySelector('.card-text.link-name').textContent.trim());
-    });
-    localStorage.setItem('linkOrder', JSON.stringify(linkOrder));
-}
+    // 保存一级分类顺序到 localStorage
+    function saveCategoryOrder() {
+        const categoryOrder = Array.from(ELEMENTS.categoryNav.children)
+            .map(item => item.querySelector('a').textContent.trim());
+        localStorage.setItem('categoryOrder', JSON.stringify(categoryOrder));
+    }
 
-// 加载二级分类顺序
-function loadSubcategoryOrder() {
-    return JSON.parse(localStorage.getItem('subcategoryOrder')) || {};
-}
+    // 保存二级分类顺序到 localStorage
+    function saveSubcategoryOrder() {
+        const subcategoryOrder = Array.from(document.querySelectorAll('.subcategory-nav-item'))
+            .map(item => item.textContent.trim());
+        localStorage.setItem('subcategoryOrder', JSON.stringify(subcategoryOrder));
+    }    
 
-function loadLinkOrder() {
-    return JSON.parse(localStorage.getItem('linkOrder')) || {};
-}
+    function saveLinkOrder() {
+        const linkOrder = {};
+        document.querySelectorAll('.links-container').forEach((el) => {
+            const subcategoryName = el.previousElementSibling.textContent.trim();
+            linkOrder[subcategoryName] = Array.from(el.querySelectorAll('.card-text.link-name')).map(item => item.textContent.trim());
+        });
+        localStorage.setItem('linkOrder', JSON.stringify(linkOrder));
+    }
+    
+    // 加载二级分类顺序
+    function loadSubcategoryOrder() {
+        return JSON.parse(localStorage.getItem('subcategoryOrder')) || {};
+    }
+
+    function loadLinkOrder() {
+        return JSON.parse(localStorage.getItem('linkOrder')) || {};
+    }
 }

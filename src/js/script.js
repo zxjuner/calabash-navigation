@@ -1,3 +1,5 @@
+import Sortable from 'sortablejs';
+
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -17,6 +19,8 @@ function init() {
     };
 
     ELEMENTS.searchResults.style.display = 'none'; // 默认隐藏搜索结果区域
+    // 初始化拖拽功能
+    initSortable();
 
     let links = [];
     let categories = new Set();
@@ -108,7 +112,6 @@ function init() {
     
         return links;
     }
-    
 
     function saveLinksToLocalStorage() {
         localStorage.setItem('links', JSON.stringify(links));
@@ -211,7 +214,8 @@ function init() {
             updateCategorySelection();
             renderSubcategoryNav(); // 渲染子分类和链接
         }
-        updateTopLinks(); // 页面加载时更新 Top Clicked Links
+        updateTopLinks();
+        initSortable(); // 初始化拖拽功能
     }
 
     function renderCategoryNav() {
@@ -248,11 +252,12 @@ function init() {
         ELEMENTS.subcategoryNav.innerHTML = '';
         const fragment = document.createDocumentFragment();
         const subcategories = [...new Set(links.filter(link => link.category === currentCategory).map(link => link.subcategory))];
+        const subcategoryOrder = loadSubcategoryOrder();
 
         subcategories.forEach(subcategory => {
             const row = createElement('div', 'row subcategory-row');
             const subcategoryItem = createElement('div', 'subcategory-nav-item col-md-2', subcategory);
-            const linksContainer = createLinksContainerForSubcategory(subcategory);
+            const linksContainer = createLinksContainerForSubcategory(subcategory, subcategoryOrder[subcategory]);
 
             row.appendChild(subcategoryItem);
             row.appendChild(linksContainer);
@@ -262,17 +267,23 @@ function init() {
         ELEMENTS.subcategoryNav.appendChild(fragment);
     }
 
-    function createLinksContainerForSubcategory(subcategory) {
+    function createLinksContainerForSubcategory(subcategory, savedOrder = []) {
         const linksContainer = createElement('div', 'links-container col-md-10');
         const linksItems = createElement('ul', 'links-items row flex-wrap');
 
-        links.filter(linkData => linkData.category === currentCategory && linkData.subcategory === subcategory)
-            .forEach(linkData => {
-                const linkElement = createLinkElement(linkData);
-                linksContainer.appendChild(linksItems);
-                linksItems.appendChild(linkElement);
-            });
+        let subcategoryLinks = links.filter(linkData => linkData.category === currentCategory && linkData.subcategory === subcategory);
 
+        // 如果有保存的顺序，则按顺序重新排列
+        if (savedOrder.length) {
+            subcategoryLinks.sort((a, b) => savedOrder.indexOf(a.name) - savedOrder.indexOf(b.name));
+        }
+
+        subcategoryLinks.forEach(linkData => {
+            const linkElement = createLinkElement(linkData);
+            linksItems.appendChild(linkElement);
+        });
+
+        linksContainer.appendChild(linksItems);
         return linksContainer;
     }
 
@@ -314,7 +325,6 @@ function init() {
     
         return linkItem;
     }
-   
 
     function createFaviconImage(url, name) {
         const img = document.createElement('img');
@@ -425,4 +435,64 @@ function init() {
         console.error('发生错误:', error);
         alert('加载数据时发生错误，请稍后再试。');
     }
+    
+    // 初始化拖拽功能
+function initSortable() {
+    // 使一级分类可拖拽排序
+    new Sortable(ELEMENTS.categoryNav, {
+        animation: 150,
+        onEnd: saveCategoryOrder
+    });
+
+    // 使子分类及其链接整体可拖拽排序
+    new Sortable(ELEMENTS.subcategoryNav, {
+        animation: 150,
+        handle: '.subcategory-nav-item', // 使用子分类标题作为拖动把手
+        onEnd: saveSubcategoryOrder
+    });
+
+    // 链接拖拽排序
+    document.querySelectorAll('.links-items').forEach((el) => {
+        new Sortable(el, {
+            animation: 150,
+            onEnd: saveLinkOrder
+        });
+    });
+}
+
+// 保存一级分类顺序到 localStorage
+function saveCategoryOrder() {
+    const categoryOrder = Array.from(ELEMENTS.categoryNav.children)
+        .map(item => item.querySelector('a').textContent.trim());
+    localStorage.setItem('categoryOrder', JSON.stringify(categoryOrder));
+}
+
+// 保存二级分类顺序到 localStorage
+function saveSubcategoryOrder() {
+    const subcategoryOrder = {};
+    document.querySelectorAll('.subcategory-row').forEach((row) => {
+        const subcategoryName = row.querySelector('.subcategory-nav-item').textContent.trim();
+        subcategoryOrder[subcategoryName] = Array.from(row.querySelector('.links-items').children)
+            .map(linkItem => linkItem.querySelector('.card-text.link-name').textContent.trim());
+    });
+    localStorage.setItem('subcategoryOrder', JSON.stringify(subcategoryOrder));
+}
+
+function saveLinkOrder() {
+    const linkOrder = {};
+    document.querySelectorAll('.links-container').forEach((el) => {
+        const subcategoryName = el.previousElementSibling.textContent.trim();
+        linkOrder[subcategoryName] = Array.from(el.children).map(item => item.querySelector('.card-text.link-name').textContent.trim());
+    });
+    localStorage.setItem('linkOrder', JSON.stringify(linkOrder));
+}
+
+// 加载二级分类顺序
+function loadSubcategoryOrder() {
+    return JSON.parse(localStorage.getItem('subcategoryOrder')) || {};
+}
+
+function loadLinkOrder() {
+    return JSON.parse(localStorage.getItem('linkOrder')) || {};
+}
 }

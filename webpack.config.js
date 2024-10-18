@@ -101,7 +101,8 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: 'src/json', to: 'json' }
+                { from: 'src/json', to: 'json' },
+                { from: 'src/images', to: 'images' }
             ],
         }),
         // 清理 build 文件夹

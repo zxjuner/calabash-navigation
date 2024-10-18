@@ -1,7 +1,7 @@
 {
     "defaultSearchMode": "google",
     "engines": [
-        { "id": "site", "name": "站内搜索", "url": "", "icon": "" },
+        { "id": "site", "name": "站内搜索", "url": "", "icon": "./images/favicon/favicon-32x32.png" },
         { "id": "baidu", "name": "百度", "url": "https://www.baidu.com/s?wd=", "icon": "https://favicon.im/baidu.com" },
         { "id": "google", "name": "Google", "url": "https://www.google.com/search?q=", "icon": "https://favicon.im/google.com" },
         { "id": "bilibili", "name": "Bilibili", "url": "https://search.bilibili.com/all?keyword=", "icon": "https://favicon.im/bilibili.com" },

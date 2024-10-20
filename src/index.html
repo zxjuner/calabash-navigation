@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>葫芦聚合导航</title>
-    <meta name="description" content="聚合搜索,网址导航">
+    <title>小葫芦导航</title>
+    <meta name="description" content="小葫芦聚合搜索,网址导航">
     <link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon/favicon-16x16.png">
@@ -45,24 +45,26 @@
 
         <!-- 显示搜索结果的区域 -->
         <div class="search-results" id="searchResults">
-            <h5 class="text-center">Search Results</h5>
+            <!-- <h5 class="text-center">Search Results</h5> -->
             <ul class="list-group" id="matchedLinks">
                 <!-- 匹配到的链接将显示在这里 -->
             </ul>
         </div>
 
         <!-- 置顶链接显示区域 -->
-        <div class="top-links">
-            <h5 class="text-center">Top Clicked Links</h5>
-            <ul class="list-group list-group-horizontal justify-content-center" id="topLinkList">
+        <div class="row top-links">
+            <div class="col-md-2">最常访问</div>
+            <ul class="col-md-10 list-group-horizontal justify-content-center flex-wrap" id="topLinkList">
                 <!-- 点击次数最多的链接将显示在这里 -->
             </ul>
         </div>
 
         <!-- 一级分类导航 -->
-        <div class="col-12 offset-md-2 col-md-8 category-nav justify-content-center" id="categoryNav">
-            <!-- 一级分类导航将动态生成 -->
-        </div>
+         <div class="row">
+            <div class="col-12 offset-md-2 col-md-8 category-nav justify-content-center" id="categoryNav">
+                <!-- 一级分类导航将动态生成 -->
+            </div>
+         </div>
 
         <!-- 表格布局 -->
         <div class="row">

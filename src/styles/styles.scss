@@ -1,6 +1,7 @@
 /* 通用样式 */
 body {
     font-family: 'Noto Sans SC', sans-serif;  /* 使用思源黑体 */
+    background-color: #f5f5f7;
 }
 
 h1, h2 {
@@ -14,10 +15,6 @@ ul {
 
 li {
     list-style: none;
-}
-
-.container {
-    background-color: rgb(245, 245, 247);
 }
 
 /* 搜索框图标样式 */
@@ -97,10 +94,6 @@ li {
 
 
 /* 搜索结果样式 */
-.search-results {
-    margin-top: 20px;
-}
-
 .search-results .search-results-container {
     display: flex;
 }
@@ -130,33 +123,35 @@ li {
     vertical-align: middle;
 }
 
-.top-links {
-    margin-bottom: 20px;
-}
-
-.top-links h2 {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
 .top-links ul {
     display: flex;
-    justify-content: center;
-    gap: 10px;
 }
 
-.top-links li {
-    margin: 0 5px;
+.top-links .top-links-title {
+    padding-top: 10px;
 }
 
-.top-links .link-item {
+.link-item {
     text-decoration: none;
     display: inline-block;
     white-space: nowrap;
     flex: 0 0 20%;
     max-width: 20%;
+    margin: 10px 0;
+}
+
+@media (min-width: 0) {
+    .link-item {
+        flex: 0 0 33.33333333%;
+        max-width: 33.33333333%;
+    }
+}
+
+@media (min-width: 992px) {
+    .link-item {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
 }
 
 .top-links .card-text.description {
@@ -208,7 +203,11 @@ li {
 .subcategory-nav {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+}
+
+.subcategory-nav .subcategory-row {
+    border-top: 1px solid #d2d2d7;
+    padding-top: 20px;
 }
 
 .subcategory-container {
@@ -223,22 +222,8 @@ li {
     font-family: 'Noto Serif SC', serif;     /* 使用思源宋体 */
     font-weight: bold;
     overflow-wrap: break-word;
-    cursor: pointer;
-}
-
-.subcategory-nav .links-items {
-    margin-bottom: 8px;
-}
-
-/* 添加 query */
-.subcategory-nav .link-item {
-    text-decoration: none;
-    display: inline-block;
-    white-space: nowrap;
-    flex: 0 0 20%;
-    max-width: 20%;
-    margin-bottom: 20px;
-}
+    padding-top: 10px;
+}   
 
 .link-item a {
     width: 100%;

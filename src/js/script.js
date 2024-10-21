@@ -4,6 +4,7 @@ function init() {
     // 常量定义
     const ELEMENTS = {
         topLinkList: document.getElementById('topLinkList'),
+        topLinkListContainer: document.getElementById('topLinkListContainer'),
         categoryNav: document.getElementById('categoryNav'),
         subcategoryNav: document.getElementById('subcategoryNav'),
         searchInput: document.getElementById('searchInput'),
@@ -347,7 +348,7 @@ function init() {
             fragment.appendChild(linkElement);
         });
         ELEMENTS.topLinkList.appendChild(fragment);
-        ELEMENTS.topLinkList.parentElement.style.display = topLinks.length > 0 ? 'flex' : 'none';
+        ELEMENTS.topLinkListContainer.style.display = topLinks.length > 0 ? 'flex' : 'none';
     }
 
     function performSearch(event) {

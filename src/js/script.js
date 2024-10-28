@@ -147,7 +147,8 @@ function init() {
     }
 
     function exportLinksAsJson() {
-        const dataStr = JSON.stringify({ links }, null, 2);
+        const lastUpdated = new Date().toISOString();
+        const dataStr = JSON.stringify({ lastUpdated, links }, null, 2);
         const blob = new Blob([dataStr], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
 

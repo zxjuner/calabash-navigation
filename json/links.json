@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2024-10-20T16:14:59.882Z",
+  "lastUpdated": "2024-10-21T11:16:33.371Z",
   "links": [
     {
       "id": "18",
@@ -599,7 +599,7 @@
       "name": "合同示范文本库",
       "url": "https://cont.12315.cn/",
       "category": "生活",
-      "subcategory": "",
+      "subcategory": "其他",
       "description": "国家市场监督管理总局出品"
     },
     {
@@ -1375,7 +1375,7 @@
       "name": "中国计算机技术职业资格网",
       "url": "http://www.ruankao.org.cn/",
       "category": "生活",
-      "subcategory": "",
+      "subcategory": "其他",
       "description": ""
     },
     {
@@ -1383,7 +1383,7 @@
       "name": "互联网信息服务投诉平台",
       "url": "https://ts.isc.org.cn/#/home",
       "category": "生活",
-      "subcategory": "",
+      "subcategory": "其他",
       "description": ""
     },
     {
@@ -1391,7 +1391,7 @@
       "name": "中国高等教育学生信息网",
       "url": "https://www.chsi.com.cn/",
       "category": "生活",
-      "subcategory": "",
+      "subcategory": "其他",
       "description": "学信网"
     },
     {
@@ -1471,7 +1471,7 @@
       "name": "GitBook",
       "url": "https://www.gitbook.com/",
       "category": "开发",
-      "subcategory": "",
+      "subcategory": "其他",
       "description": "面向工程团队的知识管理工具"
     },
     {
@@ -1607,7 +1607,7 @@
       "name": "TensorFlow",
       "url": "https://tensorflow.google.cn/?hl=zh-cn",
       "category": "开发",
-      "subcategory": "",
+      "subcategory": "其他",
       "description": "机器学习平台"
     },
     {
@@ -1649,6 +1649,22 @@
       "category": "生活",
       "subcategory": "育儿",
       "description": ""
+    },
+    {
+      "id": 1730104458839,
+      "name": "装机大师 - JD",
+      "url": "https://diy.jd.com/#/recommend",
+      "category": "实用工具",
+      "subcategory": "装机",
+      "description": "京东装机平台"
+    },
+    {
+      "id": 1730104549695,
+      "name": "安娜的档案",
+      "url": "https://zh.annas-archive.org/",
+      "category": "下载",
+      "subcategory": "电子书",
+      "description": "最大的完全开放的图书馆"
     }
   ]
 }

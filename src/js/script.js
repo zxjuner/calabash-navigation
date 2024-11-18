@@ -340,7 +340,7 @@ function init() {
             .map(linkData => ({ ...linkData, clicks: parseInt(localStorage.getItem(`linkClicks_${linkData.id}`)) || 0 }))
             .filter(item => item.clicks > 0)
             .sort((a, b) => b.clicks - a.clicks)
-            .slice(0, 10);
+            .slice(0, 15);
 
         ELEMENTS.topLinkList.innerHTML = '';
         const fragment = document.createDocumentFragment();

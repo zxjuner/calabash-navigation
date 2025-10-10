@@ -51,6 +51,12 @@ li {
     box-shadow: none;
 }
 
+input:-internal-autofill-selected {
+    background-color: white !important;
+    background-image: none !important;
+}
+
+
 #searchForm .btn {
     border: none;
     border-radius: 0;

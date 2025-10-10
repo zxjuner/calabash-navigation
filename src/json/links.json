@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2024-11-20T04:57:11.781Z",
+  "lastUpdated": "2025-10-10T03:13:21.330Z",
   "links": [
     {
       "id": "18",
@@ -1681,6 +1681,22 @@
       "category": "生活",
       "subcategory": "育儿",
       "description": "田字格字帖在线生成"
+    },
+    {
+      "id": 1760065810438,
+      "name": "Yandex",
+      "url": "https://yandex.com/",
+      "category": "实用工具",
+      "subcategory": "搜索引擎",
+      "description": "俄罗斯搜索引擎"
+    },
+    {
+      "id": 1760065934065,
+      "name": "DeepSeek",
+      "url": "https://yandex.com/",
+      "category": "实用工具",
+      "subcategory": "AI",
+      "description": ""
     }
   ]
 }

@@ -27,6 +27,7 @@ li {
 #searchBoxIcon {
     width: 32px;
     height: 32px;
+    margin-right: 0;
     border-radius: 0.25em;
     vertical-align: middle;
 }
@@ -35,8 +36,9 @@ li {
 .input-group {
     align-items: center; /* 确保图标与输入框内容垂直对齐 */
     border: 1px solid #ced4da; /* 给整个搜索框加上边框 */
-    border-radius: 0.25rem; /* 使搜索框边框圆角 */
+    border-radius: 1rem; /* 使搜索框边框圆角 */
     overflow: hidden; /* 确保圆角效果生效 */
+    background-color: #fff; /* 设置搜索框背景色 */
 }
 
 #searchForm .input-group .form-control {
@@ -57,6 +59,7 @@ li {
 
 #searchForm .btn-outline-secondary {
     line-height: 1;
+    padding: 0.9em;
 }
 
 /* 搜索类型切换按钮样式 */
@@ -260,7 +263,7 @@ li {
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #ddd;
-    border-radius: 0.25em;
+    border-radius: 1em;
 }
 
 .card:hover {

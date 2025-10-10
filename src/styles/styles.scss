@@ -19,7 +19,7 @@ li {
 
 /* 搜索框图标样式 */
 .input-group-text {
-    padding: .375rem .375rem;
+    padding: .375rem 0 .375rem 0.375rem;
     border: none;
     background-color: white;
 }
@@ -44,18 +44,12 @@ li {
 #searchForm .input-group .form-control {
     border: none;
     margin-left: 0;
-    padding-left: 0;
+    padding-left: 0.375rem;
 }
 
 .input-group .form-control:focus {
     box-shadow: none;
 }
-
-input:-internal-autofill-selected {
-    background-color: white !important;
-    background-image: none !important;
-}
-
 
 #searchForm .btn {
     border: none;
@@ -66,6 +60,7 @@ input:-internal-autofill-selected {
 #searchForm .btn-outline-secondary {
     line-height: 1;
     padding: 0.9em;
+    z-index: 6;
 }
 
 /* 搜索类型切换按钮样式 */

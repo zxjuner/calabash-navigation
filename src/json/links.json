@@ -723,14 +723,6 @@
       "description": "百度权重排名查询-站长seo查询"
     },
     {
-      "id": "130",
-      "name": "站长工具",
-      "url": "http://s.tool.chinaz.com/same",
-      "category": "实用工具",
-      "subcategory": "站长工具",
-      "description": "百度权重排名查询-站长seo查询"
-    },
-    {
       "id": "132",
       "name": "网速测试",
       "url": "http://beta.speedtest.net/",
@@ -1312,6 +1304,14 @@
       "url": "https://nodeschool.io/zh-cn/",
       "category": "开发",
       "subcategory": "手册 / 文档",
+      "description": ""
+    },
+    {
+      "id": "301",
+      "name": "VS Code",
+      "url": "https://code.visualstudio.com/",
+      "category": "开发",
+      "subcategory": "编辑器",
       "description": ""
     },
     {

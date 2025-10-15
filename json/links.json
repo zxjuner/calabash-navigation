@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2025-10-11T06:20:54.705Z",
+  "lastUpdated": "2025-10-13T11:59:07.080Z",
   "links": [
     {
       "id": "18",
       "name": "字幕库",
       "url": "https://srtku.com/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "categoryOrder": 3,
       "description": ""
     },
@@ -151,7 +151,7 @@
       "name": "片源网",
       "url": "http://pianyuan.org/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": ""
     },
     {
@@ -159,7 +159,7 @@
       "name": "字幕平台",
       "url": "http://subhd.tv/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": ""
     },
     {
@@ -167,7 +167,7 @@
       "name": "OpenSubtitles",
       "url": "https://www.opensubtitles.org/zh",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": "字幕下载"
     },
     {
@@ -175,7 +175,7 @@
       "name": "FIX字幕侠",
       "url": "http://www.zimuxia.cn/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": ""
     },
     {
@@ -183,7 +183,7 @@
       "name": "美剧粉",
       "url": "http://www.mjf2020.com/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": "美剧下载"
     },
     {
@@ -191,7 +191,7 @@
       "name": "中国高清网",
       "url": "http://gaoqing.la/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": ""
     },
     {
@@ -199,7 +199,7 @@
       "name": "torrents 预览",
       "url": "https://webtor.io/#/",
       "category": "下载",
-      "subcategory": "bt",
+      "subcategory": "影视 / 字幕",
       "description": "torrents 预览、播放"
     },
     {
@@ -207,7 +207,7 @@
       "name": "KickassTorrents",
       "url": "https://kickasstorrents.cr/",
       "category": "下载",
-      "subcategory": "bt",
+      "subcategory": "影视 / 字幕",
       "description": "bt / torrents 下载"
     },
     {
@@ -215,7 +215,7 @@
       "name": "电影港",
       "url": "http://www.dygang.com/",
       "category": "下载",
-      "subcategory": "bt",
+      "subcategory": "影视 / 字幕",
       "description": ""
     },
     {
@@ -259,14 +259,6 @@
       "description": ""
     },
     {
-      "id": "42",
-      "name": "无损音乐吧dtshot",
-      "url": "https://www.dtshot.com/",
-      "category": "下载",
-      "subcategory": "音乐",
-      "description": ""
-    },
-    {
       "id": "43",
       "name": "爱听音乐网",
       "url": "http://www.2t58.com/",
@@ -303,7 +295,7 @@
       "name": "椒盐音乐 app",
       "url": "https://moriafly.com/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": ""
     },
     {
@@ -356,19 +348,19 @@
     },
     {
       "id": "56",
-      "name": "爱悦读网",
-      "url": "https://www.iyd.wang/",
+      "name": "书格",
+      "url": "https://www.shuge.org/",
       "category": "下载",
       "subcategory": "电子书",
-      "description": "下载速度慢 电子书下载"
+      "description": "有品格的古籍数字图书馆"
     },
     {
       "id": "57",
-      "name": "书享家",
-      "url": "http://shuxiangjia.cn/",
+      "name": "飞库电子书",
+      "url": "https://www.feiku6.com/index.html",
       "category": "下载",
       "subcategory": "电子书",
-      "description": "电子书下载导航"
+      "description": "电子书在线阅读、下载"
     },
     {
       "id": "58",
@@ -404,11 +396,11 @@
     },
     {
       "id": "62",
-      "name": "懒盘搜索官网",
-      "url": "https://lzpanx.com/",
+      "name": "音范丝",
+      "url": "https://www.yinfans.me/",
       "category": "下载",
-      "subcategory": "网盘",
-      "description": "阿里云盘搜索引擎"
+      "subcategory": "影视 / 字幕",
+      "description": "高清电影下载"
     },
     {
       "id": "63",
@@ -451,28 +443,28 @@
       "description": "资源网站"
     },
     {
-      "id": "69",
-      "name": "最U导航",
-      "url": "https://www.zuh8.com/",
-      "category": "实用工具",
-      "subcategory": "聚合导航",
-      "description": "有趣的网站导航实用网址大全"
+      "id": "68",
+      "name": "SeedHub",
+      "url": "https://www.seedhub.cc/",
+      "category": "下载",
+      "subcategory": "影视 / 字幕",
+      "description": "影视下载"
     },
     {
-      "id": "70",
-      "name": "搜BaiDu盘",
-      "url": "http://www.sobaidupan.com/",
+      "id": "69",
+      "name": "BT 影视",
+      "url": "https://www.btbtla.com/",
       "category": "下载",
-      "subcategory": "网盘",
-      "description": "各类网盘搜索"
+      "subcategory": "影视 / 字幕",
+      "description": "影视下载"
     },
     {
       "id": "71",
       "name": "懒盘搜索",
-      "url": "https://www.lzpanx.com/?option=show_latest_in_index",
+      "url": "https://www.lzpanx.com/",
       "category": "下载",
       "subcategory": "网盘",
-      "description": "提供夸克网盘|阿里云盘|迅雷网盘的资源"
+      "description": "夸克|阿里|迅雷网盘资源搜索"
     },
     {
       "id": "72",
@@ -535,15 +527,15 @@
       "name": "MVCAT",
       "url": "https://www.mvcat.com/",
       "category": "下载",
-      "subcategory": "电影/字幕",
-      "description": "有扫码广告 电影推荐,下载"
+      "subcategory": "影视 / 字幕",
+      "description": "电影推荐,下载"
     },
     {
       "id": "96",
       "name": "MSDN",
       "url": "http://www.itellyou.cn/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "操作系统软件下载"
     },
     {
@@ -551,7 +543,7 @@
       "name": "游侠网",
       "url": "http://www.ali213.net/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "游戏下载"
     },
     {
@@ -559,7 +551,7 @@
       "name": "WinRAR",
       "url": "https://www.win-rar.com/start.html?&L=7",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "WinRAR 官网下载"
     },
     {
@@ -567,7 +559,7 @@
       "name": "TrackersList",
       "url": "https://trackerslist.com/#/zh",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "搭配 Qbittorrent 等 bt 下载工具"
     },
     {
@@ -575,7 +567,7 @@
       "name": "Qbittorrent",
       "url": "http://www.qbittorrent.org/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "bt 下载工具"
     },
     {
@@ -583,7 +575,7 @@
       "name": "小雅的分类 Alist",
       "url": "http://alist.xiaoya.pro/",
       "category": "下载",
-      "subcategory": "电影/字幕",
+      "subcategory": "影视 / 字幕",
       "description": "搭配阿里等网盘,目前限速严重"
     },
     {
@@ -591,7 +583,7 @@
       "name": "AList 文档",
       "url": "https://alist.nn.ci/zh/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "WebDav 挂载 支持多种存储的文件列表程序"
     },
     {
@@ -599,7 +591,7 @@
       "name": "PotPlayer 官网",
       "url": "https://vsthemes.org/en/skins/potplayer/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "WIN 下最好的播放器?"
     },
     {
@@ -607,7 +599,7 @@
       "name": "PotPlayer 皮肤",
       "url": "https://vsthemes.org/en/skins/potplayer/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "还包含 WIN 等平台主题下载"
     },
     {
@@ -615,7 +607,7 @@
       "name": "hereitis,在这里",
       "url": "https://www.hereitis.cn/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "资源站,免费软件下载,PPT、图片素材下载,精品小工具小插件"
     },
     {
@@ -623,7 +615,7 @@
       "name": "批量修改文件名",
       "url": "https://www.binfensoft.cn/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "WIN 软件"
     },
     {
@@ -631,7 +623,7 @@
       "name": "FongMi - TVBox",
       "url": "https://tv.xn--yhqu5zs87a.top/",
       "category": "下载",
-      "subcategory": "软件/APP",
+      "subcategory": "软件 / APP",
       "description": "Android / TV APP,视频 点播"
     },
     {
@@ -1039,7 +1031,7 @@
       "name": "Docker Hub",
       "url": "https://hub.docker.com/",
       "category": "开发",
-      "subcategory": "包/仓库",
+      "subcategory": "包 / 仓库",
       "description": "Docker 镜像仓库"
     },
     {
@@ -1199,7 +1191,7 @@
       "name": "npm",
       "url": "https://www.npmjs.com/",
       "category": "开发",
-      "subcategory": "包/仓库",
+      "subcategory": "包 / 仓库",
       "description": ""
     },
     {
@@ -1511,7 +1503,7 @@
       "name": "AndroidDevTools",
       "url": "http://www.androiddevtools.cn/",
       "category": "开发",
-      "subcategory": "包/仓库",
+      "subcategory": "包 / 仓库",
       "description": "Android SDK下载 Android Studio下载 Gradle下载 SDK Tools下载"
     },
     {
@@ -1543,7 +1535,7 @@
       "name": "Dart Packages",
       "url": "https://pub.dev/",
       "category": "开发",
-      "subcategory": "包/仓库",
+      "subcategory": "包 / 仓库",
       "description": "Dart 和 Flutter 应用程序的官方软件包存储库"
     },
     {
@@ -1565,10 +1557,10 @@
     {
       "id": "379",
       "name": "Flask 中文文档",
-      "url": "https://dormousehole.readthedocs.io/en/1.1.2/index.html",
+      "url": "https://dormousehole.readthedocs.io/en/latest/",
       "category": "开发",
       "subcategory": "手册 / 文档",
-      "description": "用Python编写的Web应用程序框架"
+      "description": "轻量级 WSGI 网络应用框架"
     },
     {
       "id": "385",
